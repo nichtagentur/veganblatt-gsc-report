@@ -9,3 +9,8 @@ tpl = open(os.path.join(here, "template.html"), encoding="utf-8").read()
 html = tpl.replace("/*__DATA__*/null", data).replace("/*__AIO__*/null", aio)
 open(os.path.join(here, "index.html"), "w", encoding="utf-8").write(html)
 print("Wrote index.html", len(html), "bytes")
+
+gz = open(os.path.join(here, "template-genz.html"), encoding="utf-8").read()
+gz = gz.replace("/*__DATA__*/null", data).replace("/*__AIO__*/null", aio)
+open(os.path.join(here, "genz.html"), "w", encoding="utf-8").write(gz)
+print("Wrote genz.html", len(gz), "bytes")

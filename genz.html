@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEGANBLATT, WRAPPED</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f3f0e6; --ink:#0b0b0b; --lime:#c6fb50; --pink:#ff5da2;
+  --blue:#4d6dff; --violet:#b388ff; --orange:#ff8a3d; --cyan:#46e6d0;
+  --disp:"Bricolage Grotesque",sans-serif; --sans:"Space Grotesk",sans-serif;
+  --sh:6px 6px 0 var(--ink); --sh2:10px 10px 0 var(--ink);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);overflow-x:hidden;
+  background-image:radial-gradient(var(--ink) 1px,transparent 1px);background-size:22px 22px;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* marquee */
+.marquee{background:var(--ink);color:var(--lime);overflow:hidden;white-space:nowrap;border-bottom:3px solid var(--ink);position:sticky;top:0;z-index:50}
+.marquee div{display:inline-block;padding:9px 0;font-family:var(--disp);font-weight:700;font-size:.95rem;letter-spacing:.04em;animation:scroll 22s linear infinite}
+.marquee span{margin:0 26px}
+.marquee i{color:var(--pink);font-style:normal}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* hero */
+.hero{padding:54px 0 30px;text-align:center}
+.kicker{display:inline-block;background:var(--pink);color:var(--ink);font-family:var(--disp);font-weight:700;
+  padding:7px 16px;border:3px solid var(--ink);border-radius:40px;box-shadow:var(--sh);transform:rotate(-2deg);font-size:.85rem;letter-spacing:.05em}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(3rem,12vw,8.5rem);line-height:.86;letter-spacing:-.04em;margin:22px 0 8px;text-transform:uppercase}
+.hero h1 .hl{background:var(--lime);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone;border:3px solid var(--ink);box-shadow:var(--sh);display:inline-block;transform:rotate(-1.5deg)}
+.hero p{font-size:1.05rem;font-weight:500;margin-top:18px;color:#222}
+.hero .win{font-family:var(--disp);font-weight:700;margin-top:6px}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding:30px 0 60px}
+.card{border:3px solid var(--ink);border-radius:22px;padding:26px;box-shadow:var(--sh2);position:relative;
+  transition:transform .15s,box-shadow .15s;overflow:hidden}
+.card:hover{transform:translate(-3px,-3px);box-shadow:14px 14px 0 var(--ink)}
+.tag{font-family:var(--disp);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;
+  display:inline-block;background:var(--ink);color:#fff;padding:4px 11px;border-radius:30px;margin-bottom:14px}
+.big{font-family:var(--disp);font-weight:800;line-height:.86;letter-spacing:-.03em}
+.lab{font-weight:700;margin-top:10px;font-size:1.02rem}
+.sub{font-weight:500;color:#333;margin-top:6px;font-size:.92rem}
+.c-lime{background:var(--lime)} .c-pink{background:var(--pink)} .c-blue{background:var(--blue);color:#fff}
+.c-violet{background:var(--violet)} .c-cream{background:#fff} .c-cyan{background:var(--cyan)} .c-orange{background:var(--orange)}
+.c-blue .tag{background:#fff;color:var(--ink)} .c-blue .sub{color:#e7ecff}
+.c-ink{background:var(--ink);color:var(--cream)} .c-ink .sub{color:#bdbdbd}
+.span6{grid-column:span 6}.span4{grid-column:span 4}.span3{grid-column:span 3}
+.span8{grid-column:span 8}.span5{grid-column:span 5}.span7{grid-column:span 7}.span12{grid-column:span 12}
+
+/* sticker */
+.sticker{position:absolute;top:-6px;right:-6px;background:var(--lime);border:3px solid var(--ink);
+  border-radius:50%;width:74px;height:74px;display:grid;place-items:center;text-align:center;
+  font-family:var(--disp);font-weight:800;font-size:.78rem;line-height:.95;transform:rotate(12deg);box-shadow:var(--sh)}
+
+/* lists */
+.rank{list-style:none;margin-top:6px}
+.rank li{display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:2px dashed rgba(0,0,0,.25);font-weight:600}
+.rank li:last-child{border:0}
+.rank .n{font-family:var(--disp);font-weight:800;font-size:1.3rem;min-width:30px}
+.rank .v{margin-left:auto;font-family:var(--disp);font-weight:700}
+
+/* hbars */
+.hb{margin-top:6px}
+.hb .row{margin:11px 0}
+.hb .top{display:flex;justify-content:space-between;font-weight:700;font-size:.92rem;margin-bottom:5px}
+.hb .track{height:18px;border:3px solid var(--ink);border-radius:30px;background:#fff;overflow:hidden}
+.hb .fill{height:100%;width:0;background:var(--ink);transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+
+/* aio chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.chip{border:3px solid var(--ink);border-radius:30px;padding:7px 13px;font-weight:700;font-size:.86rem;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.chip.bad{background:var(--pink)} .chip.good{background:var(--lime)} .chip.meh{background:#fff;opacity:.7}
+
+footer{border-top:3px solid var(--ink);padding:30px 0 60px;text-align:center;font-weight:600}
+footer a{color:var(--blue)}
+.reveal{opacity:0;transform:translateY(22px) rotate(-1deg)}
+.reveal.in{opacity:1;transform:none;transition:.6s cubic-bezier(.2,.9,.2,1)}
+@media(max-width:820px){.bento>*{grid-column:span 12!important}.hero h1{font-size:3.2rem}}
+</style>
+</head>
+<body>
+<script>const DATA={
+  "meta": {
+    "fetched_at": "2026-06-08T21:24:31.540375+02:00",
+    "start": "2026-03-08",
+    "end": "2026-06-05",
+    "days": 90,
+    "label": "Last 90 days",
+    "site_url": "sc-domain:veganblatt.com",
+    "brand_terms": [
+      "veganblatt",
+      "vegan blatt",
+      "vegan-blatt"
+    ]
+  },
+  "site": {
+    "clicks": 33464,
+    "impressions": 2556459,
+    "ctr": 0.0131
+  },
+  "daily": {
+    "dates": [
+      "2026-03-08",
+      "2026-03-09",
+      "2026-03-10",
+      "2026-03-11",
+      "2026-03-12",
+      "2026-03-13",
+      "2026-03-14",
+      "2026-03-15",
+      "2026-03-16",
+      "2026-03-17",
+      "2026-03-18",
+      "2026-03-19",
+      "2026-03-20",
+      "2026-03-21",
+      "2026-03-22",
+      "2026-03-23",
+      "2026-03-24",
+      "2026-03-25",
+      "2026-03-26",
+      "2026-03-27",
+      "2026-03-28",
+      "2026-03-29",
+      "2026-03-30",
+      "2026-03-31",
+      "2026-04-01",
+      "2026-04-02",
+      "2026-04-03",
+      "2026-04-04",
+      "2026-04-05",
+      "2026-04-06",
+      "2026-04-07",
+      "2026-04-08",
+      "2026-04-09",
+      "2026-04-10",
+      "2026-04-11",
+      "2026-04-12",
+      "2026-04-13",
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-16",
+      "2026-04-17",
+      "2026-04-18",
+      "2026-04-19",
+      "2026-04-20",
+      "2026-04-21",
+      "2026-04-22",
+      "2026-04-23",
+      "2026-04-24",
+      "2026-04-25",
+      "2026-04-26",
+      "2026-04-27",
+      "2026-04-28",
+      "2026-04-29",
+      "2026-04-30",
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-03",
+      "2026-05-04",
+      "2026-05-05",
+      "2026-05-06",
+      "2026-05-07",
+      "2026-05-08",
+      "2026-05-09",
+      "2026-05-10",
+      "2026-05-11",
+      "2026-05-12",
+      "2026-05-13",
+      "2026-05-14",
+      "2026-05-15",
+      "2026-05-16",
+      "2026-05-17",
+      "2026-05-18",
+      "2026-05-19",
+      "2026-05-20",
+      "2026-05-21",
+      "2026-05-22",
+      "2026-05-23",
+      "2026-05-24",
+      "2026-05-25",
+      "2026-05-26",
+      "2026-05-27",
+      "2026-05-28",
+      "2026-05-29",
+      "2026-05-30",
+      "2026-05-31",
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-03",
+      "2026-06-04",
+      "2026-06-05"
+    ],
+    "clicks": [
+      149,
+      157,
+      160,
+      160,
+      159,
+      163,
+      199,
+      193,
+      185,
+      177,
+      130,
+      138,
+      132,
+      180,
+      199,
+      149,
+      174,
+      190,
+      205,
+      215,
+      202,
+      221,
+      225,
+      269,
+      282,
+      282,
+      343,
+      311,
+      213,
+      236,
+      227,
+      231,
+      262,
+      322,
+      290,
+      267,
+      294,
+      256,
+      256,
+      297,
+      283,
+      294,
+      323,
+      297,
+      313,
+      311,
+      317,
+      348,
+      357,
+      326,
+      366,
+      339,
+      410,
+      357,
+      362,
+      424,
+      434,
+      416,
+      413,
+      425,
+      448,
+      473,
+      558,
+      499,
+      492,
+      466,
+      482,
+      583,
+      528,
+      585,
+      510,
+      475,
+      482,
+      592,
+      524,
+      539,
+      606,
+      535,
+      584,
+      633,
+      611,
+      627,
+      641,
+      698,
+      695,
+      681,
+      718,
+      723,
+      786,
+      875
+    ],
+    "impr": [
+      14562,
+      16353,
+      16307,
+      15842,
+      16139,
+      16950,
+      19339,
+      16836,
+      17688,
+      18259,
+      15560,
+      17185,
+      18802,
+      20911,
+      18258,
+      18745,
+      17833,
+      18207,
+      18281,
+      18961,
+      19226,
+      16326,
+      18019,
+      19587,
+      20921,
+      21453,
+      24847,
+      24806,
+      20280,
+      22357,
+      24358,
+      23101,
+      25964,
+      29409,
+      27152,
+      27439,
+      26418,
+      25116,
+      24888,
+      24512,
+      25869,
+      25336,
+      27065,
+      26935,
+      23336,
+      25827,
+      29197,
+      24458,
+      29724,
+      25355,
+      26933,
+      25976,
+      29330,
+      25432,
+      25275,
+      27912,
+      28241,
+      30548,
+      34907,
+      41155,
+      31862,
+      44616,
+      36862,
+      32849,
+      35971,
+      35645,
+      35208,
+      36717,
+      37056,
+      41109,
+      33960,
+      35956,
+      33094,
+      34557,
+      33012,
+      35481,
+      37525,
+      35103,
+      39044,
+      40679,
+      40195,
+      41569,
+      42749,
+      45067,
+      45174,
+      47927,
+      47864,
+      46438,
+      47320,
+      49842
+    ],
+    "clicks_roll": [
+      149.0,
+      153.0,
+      155.3,
+      156.5,
+      157.0,
+      158.0,
+      163.9,
+      170.1,
+      174.1,
+      176.6,
+      172.3,
+      169.3,
+      164.9,
+      162.1,
+      163.0,
+      157.9,
+      157.4,
+      166.0,
+      175.6,
+      187.4,
+      190.6,
+      193.7,
+      204.6,
+      218.1,
+      231.3,
+      242.3,
+      260.6,
+      276.1,
+      275.0,
+      276.6,
+      270.6,
+      263.3,
+      260.4,
+      257.4,
+      254.4,
+      262.1,
+      270.4,
+      274.6,
+      278.1,
+      283.1,
+      277.6,
+      278.1,
+      286.1,
+      286.6,
+      294.7,
+      302.6,
+      305.4,
+      314.7,
+      323.7,
+      324.1,
+      334.0,
+      337.7,
+      351.9,
+      357.6,
+      359.6,
+      369.1,
+      384.6,
+      391.7,
+      402.3,
+      404.4,
+      417.4,
+      433.3,
+      452.4,
+      461.7,
+      472.6,
+      480.1,
+      488.3,
+      507.6,
+      515.4,
+      519.3,
+      520.9,
+      518.4,
+      520.7,
+      536.4,
+      528.0,
+      529.6,
+      532.6,
+      536.1,
+      551.7,
+      573.3,
+      576.0,
+      590.7,
+      605.3,
+      618.4,
+      641.3,
+      655.1,
+      667.3,
+      683.3,
+      706.0,
+      739.4
+    ],
+    "impr_roll": [
+      14562.0,
+      15457.5,
+      15740.7,
+      15766.0,
+      15840.6,
+      16025.5,
+      16498.9,
+      16823.7,
+      17014.4,
+      17293.3,
+      17253.0,
+      17402.4,
+      17667.0,
+      17891.6,
+      18094.7,
+      18245.7,
+      18184.9,
+      18563.0,
+      18719.6,
+      18742.3,
+      18501.6,
+      18225.6,
+      18121.9,
+      18372.4,
+      18760.1,
+      19213.3,
+      20054.1,
+      20851.3,
+      21416.1,
+      22035.9,
+      22717.4,
+      23028.9,
+      23673.3,
+      24325.0,
+      24660.1,
+      25682.9,
+      26263.0,
+      26371.3,
+      26626.6,
+      26419.1,
+      25913.4,
+      25654.0,
+      25600.6,
+      25674.4,
+      25420.1,
+      25554.3,
+      26223.6,
+      26022.0,
+      26648.9,
+      26404.6,
+      26404.3,
+      26781.4,
+      27281.9,
+      26744.0,
+      26860.7,
+      26601.9,
+      27014.1,
+      27530.6,
+      28806.4,
+      30495.7,
+      31414.3,
+      34177.3,
+      35455.9,
+      36114.1,
+      36888.9,
+      36994.3,
+      36144.7,
+      36838.3,
+      35758.3,
+      36365.0,
+      36523.7,
+      36521.6,
+      36157.1,
+      36064.1,
+      35534.9,
+      35309.9,
+      34797.9,
+      34961.1,
+      35402.3,
+      36485.9,
+      37291.3,
+      38513.7,
+      39552.0,
+      40629.4,
+      42068.1,
+      43337.1,
+      44363.6,
+      45255.4,
+      46077.0,
+      47090.3
+    ]
+  },
+  "monthly": [
+    {
+      "month": "2026-03",
+      "clicks": 4331,
+      "impr": 424176,
+      "days": 24
+    },
+    {
+      "month": "2026-04",
+      "clicks": 9010,
+      "impr": 763794,
+      "days": 30
+    },
+    {
+      "month": "2026-05",
+      "clicks": 16340,
+      "impr": 1129098,
+      "days": 31
+    },
+    {
+      "month": "2026-06",
+      "clicks": 3783,
+      "impr": 239391,
+      "days": 5
+    }
+  ],
+  "growth": {
+    "first7": 163.9,
+    "last7": 739.4,
+    "factor": 4.5
+  },
+  "overall": {
+    "ctr": 0.0151,
+    "avg_position": 9.5,
+    "unique_queries": 25000,
+    "queries_clicks": 10707,
+    "queries_impr": 709891
+  },
+  "brand": {
+    "brand_clicks": 126,
+    "brand_impr": 240,
+    "nonbrand_clicks": 10581,
+    "nonbrand_impr": 709651
+  },
+  "top": [
+    {
+      "query": "vegane zahnpasta",
+      "clicks": 134,
+      "impressions": 1971,
+      "ctr": 0.068,
+      "position": 5.3
+    },
+    {
+      "query": "skittles vegan",
+      "clicks": 120,
+      "impressions": 1038,
+      "ctr": 0.1156,
+      "position": 3.2
+    },
+    {
+      "query": "veganblatt",
+      "clicks": 72,
+      "impressions": 120,
+      "ctr": 0.6,
+      "position": 2.2
+    },
+    {
+      "query": "e920",
+      "clicks": 65,
+      "impressions": 6283,
+      "ctr": 0.0103,
+      "position": 6.3
+    },
+    {
+      "query": "vegane zahnpasta dm",
+      "clicks": 65,
+      "impressions": 440,
+      "ctr": 0.1477,
+      "position": 2.6
+    },
+    {
+      "query": "e920 l cystein",
+      "clicks": 63,
+      "impressions": 613,
+      "ctr": 0.1028,
+      "position": 3.9
+    },
+    {
+      "query": "vegane milchschnitte kaufen",
+      "clicks": 63,
+      "impressions": 326,
+      "ctr": 0.1933,
+      "position": 1.6
+    },
+    {
+      "query": "olivenöl vegan",
+      "clicks": 55,
+      "impressions": 1074,
+      "ctr": 0.0512,
+      "position": 5.0
+    },
+    {
+      "query": "vegane tortencreme",
+      "clicks": 49,
+      "impressions": 690,
+      "ctr": 0.071,
+      "position": 5.6
+    },
+    {
+      "query": "sind skittles vegan",
+      "clicks": 47,
+      "impressions": 1059,
+      "ctr": 0.0444,
+      "position": 1.9
+    },
+    {
+      "query": "vegane butter testsieger",
+      "clicks": 47,
+      "impressions": 1441,
+      "ctr": 0.0326,
+      "position": 6.8
+    },
+    {
+      "query": "vegane kaugummis",
+      "clicks": 43,
+      "impressions": 277,
+      "ctr": 0.1552,
+      "position": 3.9
+    },
+    {
+      "query": "kaktus eis vegan",
+      "clicks": 41,
+      "impressions": 663,
+      "ctr": 0.0618,
+      "position": 2.1
+    },
+    {
+      "query": "vegane lebensmittelfarbe",
+      "clicks": 41,
+      "impressions": 1081,
+      "ctr": 0.0379,
+      "position": 5.1
+    },
+    {
+      "query": "ninja creami vegane rezepte",
+      "clicks": 40,
+      "impressions": 203,
+      "ctr": 0.197,
+      "position": 4.3
+    },
+    {
+      "query": "vegane palatschinken",
+      "clicks": 39,
+      "impressions": 1497,
+      "ctr": 0.0261,
+      "position": 5.6
+    },
+    {
+      "query": "vegane tapas",
+      "clicks": 39,
+      "impressions": 431,
+      "ctr": 0.0905,
+      "position": 6.3
+    },
+    {
+      "query": "veganer marillenkuchen",
+      "clicks": 39,
+      "impressions": 264,
+      "ctr": 0.1477,
+      "position": 4.1
+    },
+    {
+      "query": "veganes erdbeer tiramisu",
+      "clicks": 38,
+      "impressions": 547,
+      "ctr": 0.0695,
+      "position": 7.5
+    },
+    {
+      "query": "zahnpasta vegan",
+      "clicks": 38,
+      "impressions": 698,
+      "ctr": 0.0544,
+      "position": 5.3
+    },
+    {
+      "query": "vegane hochzeitstorte rezept",
+      "clicks": 37,
+      "impressions": 223,
+      "ctr": 0.1659,
+      "position": 3.3
+    },
+    {
+      "query": "ninja creami rezepte vegan",
+      "clicks": 34,
+      "impressions": 144,
+      "ctr": 0.2361,
+      "position": 4.9
+    },
+    {
+      "query": "salzburger nockerl vegan",
+      "clicks": 34,
+      "impressions": 82,
+      "ctr": 0.4146,
+      "position": 1.9
+    },
+    {
+      "query": "welche zahnpasta ist vegan",
+      "clicks": 34,
+      "impressions": 209,
+      "ctr": 0.1627,
+      "position": 3.8
+    },
+    {
+      "query": "lebensmittelfarbe vegan",
+      "clicks": 33,
+      "impressions": 526,
+      "ctr": 0.0627,
+      "position": 4.6
+    }
+  ],
+  "opportunities": [
+    {
+      "query": "ist senf vegan",
+      "clicks": 7,
+      "impressions": 3361,
+      "ctr": 0.0021,
+      "position": 3.0,
+      "potential_clicks": 336,
+      "clicks_gap": 329
+    },
+    {
+      "query": "agavendicksaft gesund",
+      "clicks": 0,
+      "impressions": 2044,
+      "ctr": 0.0,
+      "position": 2.5,
+      "potential_clicks": 307,
+      "clicks_gap": 307
+    },
+    {
+      "query": "jackfruit",
+      "clicks": 5,
+      "impressions": 2589,
+      "ctr": 0.0019,
+      "position": 3.3,
+      "potential_clicks": 259,
+      "clicks_gap": 254
+    },
+    {
+      "query": "ist cola vegan",
+      "clicks": 8,
+      "impressions": 2430,
+      "ctr": 0.0033,
+      "position": 2.9,
+      "potential_clicks": 243,
+      "clicks_gap": 235
+    },
+    {
+      "query": "ist honig vegan",
+      "clicks": 0,
+      "impressions": 2214,
+      "ctr": 0.0,
+      "position": 3.2,
+      "potential_clicks": 221,
+      "clicks_gap": 221
+    },
+    {
+      "query": "e920",
+      "clicks": 65,
+      "impressions": 6283,
+      "ctr": 0.0103,
+      "position": 6.3,
+      "potential_clicks": 251,
+      "clicks_gap": 186
+    },
+    {
+      "query": "ist vegan laktosefrei",
+      "clicks": 5,
+      "impressions": 1593,
+      "ctr": 0.0031,
+      "position": 3.2,
+      "potential_clicks": 159,
+      "clicks_gap": 154
+    },
+    {
+      "query": "e120",
+      "clicks": 2,
+      "impressions": 3830,
+      "ctr": 0.0005,
+      "position": 6.2,
+      "potential_clicks": 153,
+      "clicks_gap": 151
+    },
+    {
+      "query": "ist blätterteig vegan",
+      "clicks": 3,
+      "impressions": 2123,
+      "ctr": 0.0014,
+      "position": 4.1,
+      "potential_clicks": 149,
+      "clicks_gap": 146
+    },
+    {
+      "query": "ist kakaobutter vegan",
+      "clicks": 0,
+      "impressions": 3522,
+      "ctr": 0.0,
+      "position": 5.6,
+      "potential_clicks": 141,
+      "clicks_gap": 141
+    },
+    {
+      "query": "juice cleanse",
+      "clicks": 1,
+      "impressions": 7759,
+      "ctr": 0.0001,
+      "position": 10.5,
+      "potential_clicks": 140,
+      "clicks_gap": 139
+    },
+    {
+      "query": "ist red bull vegan",
+      "clicks": 14,
+      "impressions": 3790,
+      "ctr": 0.0037,
+      "position": 6.3,
+      "potential_clicks": 152,
+      "clicks_gap": 138
+    },
+    {
+      "query": "ist milchsäure vegan",
+      "clicks": 1,
+      "impressions": 4159,
+      "ctr": 0.0002,
+      "position": 7.2,
+      "potential_clicks": 125,
+      "clicks_gap": 124
+    },
+    {
+      "query": "ist redbull vegan",
+      "clicks": 6,
+      "impressions": 2842,
+      "ctr": 0.0021,
+      "position": 6.3,
+      "potential_clicks": 114,
+      "clicks_gap": 108
+    },
+    {
+      "query": "oreo vegan",
+      "clicks": 6,
+      "impressions": 2268,
+      "ctr": 0.0026,
+      "position": 5.2,
+      "potential_clicks": 113,
+      "clicks_gap": 107
+    }
+  ],
+  "themes": {
+    "Brand (veganblatt)": {
+      "clicks": 126,
+      "queries": 3
+    },
+    "E-numbers / additives": {
+      "clicks": 350,
+      "queries": 293
+    },
+    "Recipes / cooking": {
+      "clicks": 2701,
+      "queries": 3622
+    },
+    "Drinks": {
+      "clicks": 187,
+      "queries": 471
+    },
+    "\"Is X vegan?\" checks": {
+      "clicks": 5787,
+      "queries": 6522
+    }
+  },
+  "seasonal": {
+    "ratios": [
+      0.952,
+      1.0,
+      1.013,
+      0.976,
+      0.935,
+      0.936,
+      1.127,
+      1.12,
+      1.093,
+      1.074,
+      0.802,
+      0.847,
+      0.836,
+      1.143,
+      1.199,
+      0.849,
+      0.928,
+      0.997,
+      1.058,
+      1.051,
+      0.926,
+      0.956,
+      0.929,
+      1.032,
+      1.021,
+      1.025,
+      1.24,
+      1.149,
+      0.809,
+      0.906,
+      0.882,
+      0.908,
+      0.999,
+      1.191,
+      1.056,
+      0.96,
+      1.038,
+      0.922,
+      0.92,
+      1.038,
+      0.988,
+      0.998,
+      1.068,
+      0.972,
+      0.995,
+      0.961,
+      0.978,
+      1.042,
+      1.057,
+      0.927,
+      1.024,
+      0.943,
+      1.111,
+      0.928,
+      0.924,
+      1.054,
+      1.073,
+      0.997,
+      0.953,
+      0.939,
+      0.97,
+      1.001,
+      1.162,
+      1.022,
+      0.969,
+      0.904,
+      0.928,
+      1.119,
+      1.018,
+      1.123,
+      0.951,
+      0.9,
+      0.91,
+      1.112,
+      0.977,
+      0.977,
+      1.057,
+      0.929,
+      0.989,
+      1.046,
+      0.988,
+      0.978,
+      0.978,
+      1.046,
+      1.017,
+      0.965,
+      0.971,
+      0.969,
+      1.039,
+      1.128
+    ],
+    "baselines": [
+      156.5,
+      157.0,
+      158.0,
+      163.9,
+      170.1,
+      174.1,
+      176.6,
+      172.3,
+      169.3,
+      164.9,
+      162.1,
+      163.0,
+      157.9,
+      157.4,
+      166.0,
+      175.6,
+      187.4,
+      190.6,
+      193.7,
+      204.6,
+      218.1,
+      231.3,
+      242.3,
+      260.6,
+      276.1,
+      275.0,
+      276.6,
+      270.6,
+      263.3,
+      260.4,
+      257.4,
+      254.4,
+      262.1,
+      270.4,
+      274.6,
+      278.1,
+      283.1,
+      277.6,
+      278.1,
+      286.1,
+      286.6,
+      294.7,
+      302.6,
+      305.4,
+      314.7,
+      323.7,
+      324.1,
+      334.0,
+      337.7,
+      351.9,
+      357.6,
+      359.6,
+      369.1,
+      384.6,
+      391.7,
+      402.3,
+      404.4,
+      417.4,
+      433.3,
+      452.4,
+      461.7,
+      472.6,
+      480.1,
+      488.3,
+      507.6,
+      515.4,
+      519.3,
+      520.9,
+      518.4,
+      520.7,
+      536.4,
+      528.0,
+      529.6,
+      532.6,
+      536.1,
+      551.7,
+      573.3,
+      576.0,
+      590.7,
+      605.3,
+      618.4,
+      641.3,
+      655.1,
+      667.3,
+      683.3,
+      706.0,
+      739.4,
+      746.3,
+      756.6,
+      775.5
+    ],
+    "holidays": [
+      {
+        "date": "2026-04-03",
+        "name": "Good Friday / Karfreitag",
+        "country": "DE",
+        "clicks": 343,
+        "baseline": 276.6,
+        "ratio": 1.24,
+        "delta_pct": 24
+      },
+      {
+        "date": "2026-04-05",
+        "name": "Easter Sunday / Ostersonntag",
+        "country": "AT+DE",
+        "clicks": 213,
+        "baseline": 263.3,
+        "ratio": 0.809,
+        "delta_pct": -19
+      },
+      {
+        "date": "2026-04-06",
+        "name": "Easter Monday / Ostermontag",
+        "country": "AT+DE",
+        "clicks": 236,
+        "baseline": 260.4,
+        "ratio": 0.906,
+        "delta_pct": -9
+      },
+      {
+        "date": "2026-05-01",
+        "name": "Labour Day / 1. Mai",
+        "country": "AT+DE",
+        "clicks": 362,
+        "baseline": 391.7,
+        "ratio": 0.924,
+        "delta_pct": -8
+      },
+      {
+        "date": "2026-05-14",
+        "name": "Ascension / Christi Himmelfahrt (DE: Vatertag)",
+        "country": "AT+DE",
+        "clicks": 583,
+        "baseline": 520.9,
+        "ratio": 1.119,
+        "delta_pct": 12
+      },
+      {
+        "date": "2026-05-24",
+        "name": "Pentecost Sunday / Pfingstsonntag",
+        "country": "AT+DE",
+        "clicks": 535,
+        "baseline": 576.0,
+        "ratio": 0.929,
+        "delta_pct": -7
+      },
+      {
+        "date": "2026-05-25",
+        "name": "Whit Monday / Pfingstmontag",
+        "country": "AT+DE",
+        "clicks": 584,
+        "baseline": 590.7,
+        "ratio": 0.989,
+        "delta_pct": -1
+      },
+      {
+        "date": "2026-06-04",
+        "name": "Corpus Christi / Fronleichnam",
+        "country": "AT+DE(cath.)",
+        "clicks": 786,
+        "baseline": 756.6,
+        "ratio": 1.039,
+        "delta_pct": 4
+      }
+    ],
+    "school_bands": [
+      {
+        "start": "2026-03-28",
+        "end": "2026-04-07",
+        "label": "Easter school holidays (AT/DE)"
+      },
+      {
+        "start": "2026-05-26",
+        "end": "2026-06-05",
+        "label": "Pentecost week (BY/BW)"
+      }
+    ],
+    "holiday_ratio_avg": 0.994,
+    "nonholiday_ratio_avg": 1.0,
+    "dow": [
+      {
+        "day": "Mon",
+        "ratio": 0.972
+      },
+      {
+        "day": "Tue",
+        "ratio": 0.967
+      },
+      {
+        "day": "Wed",
+        "ratio": 0.972
+      },
+      {
+        "day": "Thu",
+        "ratio": 0.992
+      },
+      {
+        "day": "Fri",
+        "ratio": 1.024
+      },
+      {
+        "day": "Sat",
+        "ratio": 1.075
+      },
+      {
+        "day": "Sun",
+        "ratio": 0.999
+      }
+    ],
+    "season_queries": [
+      {
+        "theme": "Rhubarb / Strawberry",
+        "clicks": 289,
+        "impressions": 10867,
+        "queries": 259
+      },
+      {
+        "theme": "Asparagus (Spargel)",
+        "clicks": 221,
+        "impressions": 9129,
+        "queries": 180
+      },
+      {
+        "theme": "Easter (Oster*)",
+        "clicks": 159,
+        "impressions": 3847,
+        "queries": 116
+      },
+      {
+        "theme": "Grilling / BBQ",
+        "clicks": 89,
+        "impressions": 4807,
+        "queries": 135
+      },
+      {
+        "theme": "Wild garlic (Bärlauch)",
+        "clicks": 82,
+        "impressions": 2551,
+        "queries": 163
+      }
+    ]
+  }
+}; const AIO={
+  "location": "Germany (de)",
+  "queries_tested": 10,
+  "aio_present": 7,
+  "veganblatt_cited": 4,
+  "api_cost_usd": 0.02,
+  "sample_potential_clicks": 2065,
+  "sample_gsc_impr": 37685,
+  "clicks_at_risk_per_90d": 538,
+  "risk_factor_not_cited": 0.55,
+  "risk_factor_cited": 0.25,
+  "rows": [
+    {
+      "query": "ist honig vegan",
+      "aio": true,
+      "cited": false,
+      "sources": [
+        "www.peta.de",
+        "vegablum.de",
+        "www.youtube.com",
+        "www.sueddeutsche.de",
+        "www.oekotest.de",
+        "de.wikipedia.org"
+      ],
+      "n_sources": 11,
+      "serp_pos": null,
+      "gsc_clicks": 0,
+      "gsc_impr": 2214,
+      "gsc_pos": 3.2,
+      "potential_clicks": 221,
+      "risk_factor": 0.55,
+      "clicks_at_risk": 122
+    },
+    {
+      "query": "ist senf vegan",
+      "aio": false,
+      "cited": false,
+      "sources": [],
+      "n_sources": 0,
+      "serp_pos": 4,
+      "gsc_clicks": 7,
+      "gsc_impr": 3361,
+      "gsc_pos": 3.0,
+      "potential_clicks": 336,
+      "risk_factor": 0.0,
+      "clicks_at_risk": 0
+    },
+    {
+      "query": "ist cola vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "vegpool.de",
+        "www.veganblatt.com",
+        "www.veganfitwerden.de",
+        "www.youtube.com",
+        "www.handelsblatt.com"
+      ],
+      "n_sources": 5,
+      "serp_pos": 4,
+      "gsc_clicks": 8,
+      "gsc_impr": 2430,
+      "gsc_pos": 2.9,
+      "potential_clicks": 243,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 61
+    },
+    {
+      "query": "ist kakaobutter vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "vegpool.de",
+        "www.valrhona.com",
+        "tcho.com",
+        "www.veganblatt.com",
+        "analytik.news",
+        "www.viactiv.de"
+      ],
+      "n_sources": 6,
+      "serp_pos": 9,
+      "gsc_clicks": 0,
+      "gsc_impr": 3522,
+      "gsc_pos": 5.6,
+      "potential_clicks": 141,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 35
+    },
+    {
+      "query": "ist red bull vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "www.redbull.com",
+        "www.eat-vegan.de",
+        "utopia.de",
+        "www.veganblatt.com",
+        "plantbasednews.org"
+      ],
+      "n_sources": 5,
+      "serp_pos": 8,
+      "gsc_clicks": 14,
+      "gsc_impr": 3790,
+      "gsc_pos": 6.3,
+      "potential_clicks": 152,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 38
+    },
+    {
+      "query": "ist milchsäure vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "www.peta.de",
+        "www.resch-frisch.com",
+        "veggie-einhorn.de",
+        "www.veganblatt.com",
+        "www.amazon.de",
+        "www.primaveralife.com"
+      ],
+      "n_sources": 6,
+      "serp_pos": 8,
+      "gsc_clicks": 1,
+      "gsc_impr": 4159,
+      "gsc_pos": 7.2,
+      "potential_clicks": 125,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 31
+    },
+    {
+      "query": "ist blätterteig vegan",
+      "aio": true,
+      "cited": false,
+      "sources": [
+        "www.reddit.com",
+        "www.tantefanny.com",
+        "verbund.edeka",
+        "www.zuckerjagdwurst.com",
+        "vegpool.de",
+        "www.unsereheimat.de"
+      ],
+      "n_sources": 12,
+      "serp_pos": null,
+      "gsc_clicks": 3,
+      "gsc_impr": 2123,
+      "gsc_pos": 4.1,
+      "potential_clicks": 149,
+      "risk_factor": 0.55,
+      "clicks_at_risk": 82
+    },
+    {
+      "query": "e920",
+      "aio": false,
+      "cited": false,
+      "sources": [],
+      "n_sources": 0,
+      "serp_pos": 4,
+      "gsc_clicks": 65,
+      "gsc_impr": 6283,
+      "gsc_pos": 6.3,
+      "potential_clicks": 251,
+      "risk_factor": 0.0,
+      "clicks_at_risk": 0
+    },
+    {
+      "query": "agavendicksaft gesund",
+      "aio": true,
+      "cited": false,
+      "sources": [
+        "www.barmer.de",
+        "www.ruf.eu",
+        "www.instagram.com"
+      ],
+      "n_sources": 3,
+      "serp_pos": null,
+      "gsc_clicks": 0,
+      "gsc_impr": 2044,
+      "gsc_pos": 2.5,
+      "potential_clicks": 307,
+      "risk_factor": 0.55,
+      "clicks_at_risk": 169
+    },
+    {
+      "query": "juice cleanse",
+      "aio": false,
+      "cited": false,
+      "sources": [],
+      "n_sources": 0,
+      "serp_pos": null,
+      "gsc_clicks": 1,
+      "gsc_impr": 7759,
+      "gsc_pos": 10.5,
+      "potential_clicks": 140,
+      "risk_factor": 0.0,
+      "clicks_at_risk": 0
+    }
+  ]
+};</script>
+
+<div class="marquee"><div id="mq"></div></div>
+
+<header class="hero wrap">
+  <span class="kicker">★ no cap, just data ★</span>
+  <h1>Veganblatt<br><span class="hl">wrapped</span></h1>
+  <p>90 days of what Germany &amp; Austria typed into Google. it ate.</p>
+  <p class="win" id="win">—</p>
+</header>
+
+<main class="bento wrap">
+
+  <!-- glow up -->
+  <div class="card c-lime span5 reveal">
+    <div class="sticker">GLOW<br>UP</div>
+    <span class="tag">the era</span>
+    <div class="big" style="font-size:clamp(4rem,13vw,8rem)"><span id="factor">0</span>×</div>
+    <div class="lab">more clicks, start vs end of the window</div>
+    <div class="sub"><span id="f1">0</span> → <span id="f2">0</span> clicks a day. straight up.</div>
+  </div>
+
+  <!-- total pull up -->
+  <div class="card c-blue span4 reveal">
+    <span class="tag">pulled up</span>
+    <div class="big" style="font-size:clamp(3rem,8vw,5rem)" id="clicks">0</div>
+    <div class="lab">total clicks from Google</div>
+    <div class="sub"><span id="impr">0</span> times shown. main character behaviour.</div>
+  </div>
+
+  <!-- ctr/pos mini -->
+  <div class="card c-cream span3 reveal">
+    <span class="tag">the stats</span>
+    <div class="big" style="font-size:2.6rem" id="ctr">0%</div>
+    <div class="sub">click rate</div>
+    <div class="big" style="font-size:2.6rem;margin-top:14px" id="pos">0</div>
+    <div class="sub">avg rank on Google</div>
+  </div>
+
+  <!-- top searches -->
+  <div class="card c-violet span5 reveal">
+    <span class="tag">on everyone's mind</span>
+    <ol class="rank" id="topRank"></ol>
+  </div>
+
+  <!-- biggest question energy -->
+  <div class="card c-pink span4 reveal">
+    <div class="sticker" style="background:#fff">BIG<br>Q</div>
+    <span class="tag">main intent</span>
+    <div class="big" style="font-size:clamp(2.6rem,7vw,4.2rem)">"is X<br>vegan?"</div>
+    <div class="lab"><span id="isx">0</span> clicks asking exactly this</div>
+    <div class="sub">honig, senf, cola, red bull… the people need answers.</div>
+  </div>
+
+  <!-- saturday -->
+  <div class="card c-cyan span3 reveal">
+    <span class="tag">peak day</span>
+    <div class="big" style="font-size:3.4rem">SAT</div>
+    <div class="lab" id="sat">+0% vs trend</div>
+    <div class="sub">weekend = cooking arc. midweek just lurks.</div>
+  </div>
+
+  <!-- AI overview tea -->
+  <div class="card c-ink span7 reveal">
+    <span class="tag" style="background:var(--pink);color:#fff">the tea ☕ · google's AI</span>
+    <div style="display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap">
+      <div><div class="big" style="font-size:clamp(3rem,9vw,5.5rem);color:var(--lime)"><span id="aioN">0</span>/10</div>
+        <div class="lab">queries get an AI Overview</div></div>
+      <div><div class="big" style="font-size:clamp(2.4rem,6vw,3.6rem);color:var(--pink)"><span id="aioRisk">0</span>%</div>
+        <div class="sub">of potential clicks lowkey at risk — Google answers it inline</div></div>
+    </div>
+    <div class="chips" id="aioChips"></div>
+    <div class="sub" style="margin-top:14px">cited in <b id="aioCite" style="color:var(--lime)">0</b> of them tho — veganblatt IS the source sometimes. flex.</div>
+  </div>
+
+  <!-- holiday timing -->
+  <div class="card c-orange span5 reveal">
+    <div class="sticker" style="background:var(--ink);color:var(--lime)">+24%</div>
+    <span class="tag">plot twist</span>
+    <div class="big" style="font-size:clamp(1.8rem,5vw,2.8rem)">they cook BEFORE the holiday</div>
+    <div class="sub" style="margin-top:10px"><b>Good Friday +24%</b> (prep mode), but Easter Sunday <b>−19%</b> — everyone's offline at the table. publish recipes a week early, ez.</div>
+  </div>
+
+  <!-- spring produce -->
+  <div class="card c-lime span6 reveal">
+    <span class="tag">seasonal drop 🌱</span>
+    <div class="lab" style="margin-bottom:6px">spring produce that's trending rn</div>
+    <div class="hb" id="seasonHb"></div>
+  </div>
+
+  <!-- free real estate -->
+  <div class="card c-cream span6 reveal">
+    <span class="tag">free real estate</span>
+    <div class="big" style="font-size:clamp(2.4rem,6vw,3.6rem)">+<span id="freeClicks">0</span></div>
+    <div class="lab">clicks just sitting there</div>
+    <div class="sub" style="margin-bottom:10px">already ranking, barely clicked. fix the title = instant W:</div>
+    <ol class="rank" id="oppRank"></ol>
+  </div>
+
+</main>
+
+<footer class="wrap">
+  veganblatt.com · google search console · <span id="fwin">—</span><br>
+  receipts: <a href="https://nichtagentur.github.io/veganblatt-gsc-report/">the full editorial report →</a>
+</footer>
+
+<script>
+const D=DATA,A=AIO,fmt=n=>n.toLocaleString('en-US');
+const S=D.seasonal;
+function up(el,to,{dur=1500,dec=0,suf=''}={}){let s=null;requestAnimationFrame(function f(t){if(!s)s=t;
+  const p=Math.min((t-s)/dur,1),e=1-Math.pow(1-p,3),v=to*e;
+  el.textContent=(dec?v.toFixed(dec):Math.round(v).toLocaleString('en-US'))+suf;if(p<1)requestAnimationFrame(f);});}
+
+// marquee
+const mqtxt=`<span>VEGANBLATT WRAPPED <i>✦</i></span><span>${D.growth.factor}× GLOW UP <i>✦</i></span><span>${fmt(D.site.clicks)} CLICKS <i>✦</i></span><span>"IS X VEGAN?" ENERGY <i>✦</i></span><span>${A?A.aio_present:0}/10 GOOGLE AI OVERVIEWS <i>✦</i></span><span>SPARGEL SZN <i>✦</i></span>`;
+document.getElementById('mq').innerHTML=mqtxt+mqtxt;
+
+document.getElementById('win').textContent=`${D.meta.start} → ${D.meta.end} · ${D.meta.days} days`;
+document.getElementById('fwin').textContent=`${D.meta.start} → ${D.meta.end}`;
+
+// top searches
+document.getElementById('topRank').innerHTML=D.top.slice(0,5).map((t,i)=>
+  `<li><span class="n">${i+1}</span><span>${t.query}</span><span class="v">${t.clicks}</span></li>`).join('');
+
+// opportunities (free real estate)
+document.getElementById('oppRank').innerHTML=D.opportunities.slice(0,4).map(o=>
+  `<li><span>${o.query}</span><span class="v" style="color:#0b0b0b">+${o.clicks_gap}</span></li>`).join('');
+
+// season bars
+const sm=Math.max(...S.season_queries.map(r=>r.clicks));
+document.getElementById('seasonHb').innerHTML=S.season_queries.map(r=>
+  `<div class="row"><div class="top"><span>${r.theme}</span><span>${r.clicks}</span></div>
+   <div class="track"><div class="fill" data-w="${(r.clicks/sm*100).toFixed(0)}"></div></div></div>`).join('');
+
+// aio chips
+if(A){
+  const order=[...A.rows].sort((a,b)=>(b.clicks_at_risk)-(a.clicks_at_risk));
+  document.getElementById('aioChips').innerHTML=order.map(r=>{
+    const cls=!r.aio?'meh':(r.cited?'good':'bad');
+    const t=!r.aio?'no AIO':(r.cited?'cited ✓':'-'+r.clicks_at_risk);
+    return `<span class="chip ${cls}">${r.query} · ${t}</span>`;}).join('');
+}
+
+// count-ups + bar fills on load
+const fire=()=>{
+  up(document.getElementById('factor'),D.growth.factor,{dec:1});
+  up(document.getElementById('f1'),D.growth.first7);
+  up(document.getElementById('f2'),D.growth.last7);
+  up(document.getElementById('clicks'),D.site.clicks);
+  up(document.getElementById('impr'),D.site.impressions);
+  up(document.getElementById('ctr'),D.site.ctr*100,{dec:1,suf:'%'});
+  up(document.getElementById('pos'),D.overall.avg_position,{dec:1});
+  up(document.getElementById('isx'),S.season_queries.length?D.themes['"Is X vegan?" checks'].clicks:0);
+  const satv=Math.round((S.dow.find(x=>x.day==='Sat').ratio-1)*100);
+  document.getElementById('sat').textContent=(satv>0?'+':'')+satv+'% vs trend';
+  if(A){up(document.getElementById('aioN'),A.aio_present);
+    up(document.getElementById('aioRisk'),Math.round(A.clicks_at_risk_per_90d/A.sample_potential_clicks*100));
+    up(document.getElementById('aioCite'),A.veganblatt_cited);}
+  up(document.getElementById('freeClicks'),D.opportunities.reduce((s,o)=>s+o.clicks_gap,0));
+  document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');
+};
+window.addEventListener('load',fire); fire();
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting){
+  setTimeout(()=>e.target.classList.add('in'),(i%3)*80);io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
