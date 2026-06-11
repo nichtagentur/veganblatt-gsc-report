@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEGANBLATT — Search Performance Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@300..700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#070b08; --bg2:#0c130d; --panel:#0e1610; --panel2:#121c14;
+  --ink:#eef3ea; --muted:#8fa593; --faint:#586b5c;
+  --leaf:#7ee787; --lime:#caff4d; --moss:#3fb950; --citrus:#f0ff3c;
+  --line:#1c2a1e; --glow:rgba(126,231,135,.35);
+  --serif:"Fraunces",Georgia,serif; --sans:"Space Grotesk",sans-serif;
+  --mono:"Spline Sans Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--sans);
+  overflow-x:hidden; line-height:1.5;
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(126,231,135,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(202,255,77,.06), transparent 55%);
+}
+/* film grain overlay */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:screen;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+section{position:relative;z-index:1}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px;position:relative}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;color:var(--leaf);display:flex;gap:14px;align-items:center}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--leaf);display:inline-block}
+.hero h1{
+  font-family:var(--serif);font-weight:300;font-size:clamp(3.4rem,11vw,9.5rem);line-height:.92;
+  letter-spacing:-.03em;margin:.18em 0 .1em;
+}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--lime)}
+.hero .lede{max-width:640px;font-size:clamp(1.05rem,2.2vw,1.4rem);color:var(--muted);font-weight:300}
+.hero .lede b{color:var(--ink);font-weight:500}
+.window-tag{font-family:var(--mono);font-size:.8rem;color:var(--faint);margin-top:26px;letter-spacing:.05em}
+.scrolldot{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;color:var(--faint);animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+
+/* big hero stat strip */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:56px}
+.kpi{background:linear-gradient(180deg,var(--panel),var(--bg2));padding:30px 26px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;inset:0;background:radial-gradient(120px 80px at 90% 0%,var(--glow),transparent 70%);opacity:0;transition:opacity .6s}
+.kpi:hover::before{opacity:1}
+.kpi .num{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.kpi .num .u{font-size:.5em;color:var(--leaf);margin-left:2px}
+.kpi .lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+.kpi .sub{font-size:.8rem;color:var(--faint);margin-top:4px}
+
+/* ---------- SECTION HEADINGS ---------- */
+.shead{display:flex;align-items:baseline;gap:18px;margin:0 0 8px}
+.shead .idx{font-family:var(--mono);font-size:.85rem;color:var(--moss)}
+.shead h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.6vw,3.2rem);letter-spacing:-.02em}
+.shead h2 em{font-style:italic;color:var(--lime)}
+.sdesc{color:var(--muted);max-width:620px;font-weight:300;margin-bottom:34px}
+.block{padding:90px 0;border-top:1px solid var(--line)}
+
+/* panels & charts */
+.panel{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:26px}
+.chartbox{position:relative;height:380px}
+.chartbox.sm{height:300px}
+.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:22px}
+.legend{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-bottom:18px}
+.legend span{display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%}
+
+/* themes */
+.themes{display:flex;flex-direction:column;gap:14px}
+.theme{display:grid;grid-template-columns:200px 1fr auto;align-items:center;gap:16px}
+.theme .nm{font-weight:500;font-size:.95rem}
+.theme .nm small{display:block;color:var(--faint);font-family:var(--mono);font-size:.68rem;margin-top:2px}
+.bar{height:14px;border-radius:8px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--moss),var(--leaf));width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.theme .v{font-family:var(--mono);color:var(--leaf);font-size:.9rem;min-width:64px;text-align:right}
+
+/* opportunity table */
+.table{width:100%;border-collapse:collapse;font-size:.92rem}
+.table thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+.table tbody td{padding:16px;border-bottom:1px solid var(--line)}
+.table tbody tr{transition:background .25s}
+.table tbody tr:hover{background:rgba(126,231,135,.05)}
+.table .q{font-weight:500}
+.table .num{font-family:var(--mono)}
+.pill{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:20px;border:1px solid var(--moss);color:var(--leaf);white-space:nowrap}
+.gap{font-family:var(--serif);font-size:1.15rem;color:var(--citrus)}
+.todo{color:var(--muted);font-size:.86rem}
+
+/* insight cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:10px}
+.card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.card .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--moss)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin:14px 0 10px;line-height:1.15}
+.card p{color:var(--muted);font-size:.92rem;font-weight:300}
+.card .big{font-family:var(--serif);font-size:3rem;color:var(--lime);line-height:1;margin-bottom:6px}
+
+/* caveats / footer */
+.caveats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.caveat{border-left:2px solid var(--moss);padding:6px 0 6px 18px}
+.caveat b{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--leaf);margin-bottom:6px}
+.caveat p{color:var(--muted);font-size:.86rem;font-weight:300}
+footer{padding:70px 0 90px;border-top:1px solid var(--line);text-align:center;color:var(--faint);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:860px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .grid2,.cards,.caveats{grid-template-columns:1fr}
+  .theme{grid-template-columns:130px 1fr auto}
+  .wrap{padding:0 20px}
+}
+</style>
+</head>
+<body>
+<script>const DATA=/*__DATA__*/null;</script>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">VEGANBLATT.COM · Search Console Intelligence</div>
+  <h1 class="reveal">Search that<br><em>grew up</em>.</h1>
+  <p class="lede reveal">In one 90-day window, organic clicks multiplied by <b id="hFactor">—</b>.
+     Here is what Germany &amp; Austria are asking Google — and exactly where the next wins are hiding.</p>
+  <div class="window-tag" id="hWindow">—</div>
+
+  <div class="kpis reveal">
+    <div class="kpi"><div class="num" data-count="" id="kClicks">0</div><div class="lab">Total clicks</div><div class="sub">organic search</div></div>
+    <div class="kpi"><div class="num" id="kImpr">0</div><div class="lab">Impressions</div><div class="sub">times shown in results</div></div>
+    <div class="kpi"><div class="num" id="kCtr">0<span class="u">%</span></div><div class="lab">Avg click rate</div><div class="sub">clicks ÷ impressions</div></div>
+    <div class="kpi"><div class="num" id="kPos">0</div><div class="lab">Avg position</div><div class="sub">where we rank</div></div>
+  </div>
+  <div class="scrolldot">SCROLL ↓</div>
+</div></section>
+
+<!-- 1. GROWTH -->
+<section class="block"><div class="wrap">
+  <div class="shead reveal"><span class="idx">01</span><h2>The <em>growth</em> curve</h2></div>
+  <p class="sdesc reveal">Daily organic clicks with a 7-day rolling average. The trend is not noise — it is a steep, sustained climb across the whole quarter.</p>
+  <div class="panel reveal">
+    <div class="legend">
+      <span><i class="dot" style="background:var(--leaf)"></i>Daily clicks</span>
+      <span><i class="dot" style="background:var(--citrus)"></i>7-day average</span>
+      <span><i class="dot" style="background:var(--faint)"></i>Impressions (right axis)</span>
+    </div>
+    <div class="chartbox"><canvas id="cGrowth"></canvas></div>
+  </div>
+  <div class="grid2" style="margin-top:22px">
+    <div class="panel reveal"><div class="legend"><span><i class="dot" style="background:var(--moss)"></i>Clicks per month</span></div><div class="chartbox sm"><canvas id="cMonth"></canvas></div></div>
+    <div class="panel reveal" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="tag" style="font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--moss);text-transform:uppercase">Momentum</div>
+      <div style="font-family:var(--serif);font-size:3.4rem;color:var(--lime);line-height:1;margin:10px 0"><span id="g1">0</span> → <span id="g2">0</span></div>
+      <p style="color:var(--muted);font-weight:300">Average clicks per day, first week vs. last week of the window. A <b style="color:var(--ink)" id="gFactor">—</b> increase with no sign of a plateau.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 2. WHAT PEOPLE SEARCH -->
+<section class="block"><div class="wrap">
+  <div class="shead reveal"><span class="idx">02</span><h2>What people <em>actually</em> ask</h2></div>
+  <p class="sdesc reveal">No single keyword carries the site — traffic is a vast long tail of curiosity. The dominant intent: <b style="color:var(--leaf)">"is this thing vegan?"</b></p>
+  <div class="grid2">
+    <div class="panel reveal"><div class="legend"><span><i class="dot" style="background:var(--leaf)"></i>Top 12 queries by clicks</span></div><div class="chartbox" style="height:440px"><canvas id="cTop"></canvas></div></div>
+    <div class="panel reveal">
+      <div class="legend"><span><i class="dot" style="background:var(--moss)"></i>Clicks by content theme</span></div>
+      <div class="themes" id="themes"></div>
+      <p style="color:var(--faint);font-size:.8rem;margin-top:20px;font-family:var(--mono)">Each query counted in its first matching theme.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3. OPPORTUNITIES -->
+<section class="block"><div class="wrap">
+  <div class="shead reveal"><span class="idx">03</span><h2>Money <em>left on the table</em></h2></div>
+  <p class="sdesc reveal">These queries already rank — Google shows our pages thousands of times — but almost nobody clicks. Fix the title, snippet, or thin content and the traffic is essentially already paid for.</p>
+  <div class="panel reveal" style="padding:6px 6px 0">
+    <table class="table"><thead><tr>
+      <th>Query</th><th>Impressions</th><th>Rank</th><th>Clicks now</th><th>Clicks left</th><th>Action for the team</th>
+    </tr></thead><tbody id="oppBody"></tbody></table>
+  </div>
+</div></section>
+
+<!-- 4. ACTIONS -->
+<section class="block"><div class="wrap">
+  <div class="shead reveal"><span class="idx">04</span><h2>Do these <em>three things</em></h2></div>
+  <p class="sdesc reveal">The deep insight in plain terms — and what to ship this week.</p>
+  <div class="cards">
+    <div class="card reveal"><div class="tag">Insight 01 · Intent</div><div class="big" id="ci1">0</div><h3>Own the "is X vegan?" question</h3><p>Over <b id="ci1b" style="color:var(--ink)">—</b> clicks come from people checking if a product is vegan. Build one definitive, well-structured answer page per product (Senf, Honig, Cola, Kakaobutter…) with a clear yes/no above the fold.</p></div>
+    <div class="card reveal"><div class="tag">Insight 02 · CTR</div><div class="big" id="ci2">0</div><h3>Rewrite titles, not rankings</h3><p>That many clicks are recoverable from queries already on page 1–2. No new content needed — sharpen the page titles and meta descriptions so the existing ranking finally earns the click.</p></div>
+    <div class="card reveal"><div class="tag">Insight 03 · Brand</div><div class="big" id="ci3">0</div><h3>Demand is non-branded</h3><p>Only <b id="ci3b" style="color:var(--ink)">—</b> clicks are people searching the brand name. Nearly all growth is strangers discovering Veganblatt through questions — keep feeding the topical, ingredient-level content engine.</p></div>
+  </div>
+</div></section>
+
+<!-- CAVEATS -->
+<section class="block"><div class="wrap">
+  <div class="shead reveal"><span class="idx">05</span><h2>Read the <em>fine print</em></h2></div>
+  <div class="caveats reveal">
+    <div class="caveat"><b>90-day window</b><p>This is 8 Mar – 5 Jun 2026, not a full calendar year. The growth is real but seasonality is not yet ruled out.</p></div>
+    <div class="caveat"><b>Brand split recomputed</b><p>The source export reported 0 branded clicks (a bug). We recomputed it from the raw query list — the true figure is small but non-zero.</p></div>
+    <div class="caveat"><b>Clicks ≠ pageviews</b><p>These are Search Console clicks from Google only. Direct, social and referral traffic sit on top and are not shown here.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  VEGANBLATT.COM · Google Search Console · <span id="fWindow">—</span><br>
+  Prepared as a data-science readout · generated <span id="fGen">—</span>
+</div></footer>
+
+<script>
+const D=DATA, fmt=n=>n.toLocaleString('en-US');
+// fonts for chart.js
+Chart.defaults.font.family="'Spline Sans Mono', monospace";
+Chart.defaults.color="#8fa593";
+const CSS=getComputedStyle(document.documentElement);
+const C={leaf:CSS.getPropertyValue('--leaf').trim(),lime:CSS.getPropertyValue('--lime').trim(),
+  moss:CSS.getPropertyValue('--moss').trim(),citrus:CSS.getPropertyValue('--citrus').trim(),
+  line:CSS.getPropertyValue('--line').trim(),faint:CSS.getPropertyValue('--faint').trim(),muted:CSS.getPropertyValue('--muted').trim()};
+
+/* ---- count-up ---- */
+function countUp(el,to,{dur=1600,dec=0,suffix=''}={}){
+  let t0=null;const from=0;
+  function step(t){if(!t0)t0=t;const p=Math.min((t-t0)/dur,1);
+    const e=1-Math.pow(1-p,3);const v=from+(to-from)*e;
+    el.firstChild?el.childNodes[0].nodeValue=v.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,','):el.textContent=v.toFixed(dec);
+    if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+/* ---- populate header ---- */
+document.getElementById('hFactor').textContent=D.growth.factor+'×';
+document.getElementById('hWindow').textContent='WINDOW · '+D.meta.start+' → '+D.meta.end+'  ('+D.meta.days+' days)';
+document.getElementById('fWindow').textContent=D.meta.start+' → '+D.meta.end;
+document.getElementById('fGen').textContent=new Date(D.meta.fetched_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+document.getElementById('gFactor').textContent=D.growth.factor+'×';
+
+/* ---- reveal observer (staggered) ---- */
+const io=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting){
+  setTimeout(()=>e.target.classList.add('in'),(i%4)*90);io.unobserve(e.target);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- KPI count-ups on load ---- */
+window.addEventListener('load',()=>{
+  countUp(document.getElementById('kClicks'),D.site.clicks);
+  countUp(document.getElementById('kImpr'),D.site.impressions);
+  const ctrEl=document.getElementById('kCtr');
+  countUp(ctrEl.childNodes[0]?ctrEl:ctrEl,(D.site.ctr*100),{dec:1,dur:1700});
+  // ctr has a <span> unit child; animate text node only
+  let p0=null;(function ctr(t){if(!p0)p0=t;const p=Math.min((t-p0)/1700,1);const e=1-Math.pow(1-p,3);
+    ctrEl.childNodes[0].nodeValue=(D.site.ctr*100*e).toFixed(1);if(p<1)requestAnimationFrame(ctr);})();
+  countUp(document.getElementById('kPos'),D.overall.avg_position,{dec:1,dur:1700});
+  countUp(document.getElementById('g1'),D.growth.first7,{dec:0});
+  countUp(document.getElementById('g2'),D.growth.last7,{dec:0});
+  // insight cards
+  const isx=D.themes['"Is X vegan?" checks'].clicks;
+  const gapSum=D.opportunities.reduce((s,o)=>s+o.clicks_gap,0);
+  countUp(document.getElementById('ci1'),isx);document.getElementById('ci1b').textContent=fmt(isx);
+  countUp(document.getElementById('ci2'),gapSum);
+  countUp(document.getElementById('ci3'),D.brand.brand_clicks);document.getElementById('ci3b').textContent=fmt(D.brand.brand_clicks);
+});
+
+/* ---- growth chart ---- */
+function grad(ctx,area,c1,c2){const g=ctx.createLinearGradient(0,area.top,0,area.bottom);
+  g.addColorStop(0,c1);g.addColorStop(1,c2);return g;}
+new Chart(document.getElementById('cGrowth'),{type:'line',
+  data:{labels:D.daily.dates,datasets:[
+    {label:'Impressions',data:D.daily.impr,yAxisID:'y2',borderColor:'rgba(88,107,92,.5)',
+      backgroundColor:'transparent',borderWidth:1,pointRadius:0,tension:.35,borderDash:[4,4]},
+    {label:'Daily clicks',data:D.daily.clicks,yAxisID:'y',borderColor:'rgba(126,231,135,.35)',
+      backgroundColor:(c)=>{const{ctx,chartArea}=c.chart;if(!chartArea)return;return grad(ctx,chartArea,'rgba(126,231,135,.28)','rgba(126,231,135,0)');},
+      borderWidth:1.5,pointRadius:0,tension:.35,fill:true},
+    {label:'7-day avg',data:D.daily.clicks_roll,yAxisID:'y',borderColor:C.citrus,
+      backgroundColor:'transparent',borderWidth:2.5,pointRadius:0,tension:.4},
+  ]},
+  options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{backgroundColor:'#0c130d',borderColor:C.line,borderWidth:1,padding:12,
+      titleColor:'#eef3ea',bodyColor:'#8fa593'}},
+    scales:{
+      x:{grid:{display:false},ticks:{maxTicksLimit:8,color:C.faint},border:{color:C.line}},
+      y:{position:'left',grid:{color:C.line},ticks:{color:C.muted},border:{display:false},title:{display:true,text:'CLICKS',color:C.faint,font:{size:10}}},
+      y2:{position:'right',grid:{display:false},ticks:{color:C.faint,callback:v=>v/1000+'k'},border:{display:false}}
+    }}});
+
+/* ---- monthly bars ---- */
+new Chart(document.getElementById('cMonth'),{type:'bar',
+  data:{labels:D.monthly.map(m=>({"2026-03":"Mar","2026-04":"Apr","2026-05":"May","2026-06":"Jun*"}[m.month]||m.month)),
+    datasets:[{data:D.monthly.map(m=>m.clicks),
+      backgroundColor:(c)=>{const{ctx,chartArea}=c.chart;if(!chartArea)return C.moss;return grad(ctx,chartArea,C.leaf,'rgba(63,185,80,.25)');},
+      borderRadius:8,maxBarThickness:70}]},
+  options:{maintainAspectRatio:false,plugins:{legend:{display:false},
+    tooltip:{backgroundColor:'#0c130d',borderColor:C.line,borderWidth:1,callbacks:{label:c=>fmt(c.parsed.y)+' clicks'}}},
+    scales:{x:{grid:{display:false},ticks:{color:C.muted},border:{color:C.line}},
+      y:{grid:{color:C.line},ticks:{color:C.faint,callback:v=>v/1000+'k'},border:{display:false}}}}});
+
+/* ---- top queries horizontal ---- */
+const top12=D.top.slice(0,12);
+new Chart(document.getElementById('cTop'),{type:'bar',
+  data:{labels:top12.map(t=>t.query),datasets:[{data:top12.map(t=>t.clicks),
+    backgroundColor:(c)=>{const{ctx,chartArea}=c.chart;if(!chartArea)return C.leaf;
+      const g=ctx.createLinearGradient(chartArea.left,0,chartArea.right,0);g.addColorStop(0,'rgba(63,185,80,.4)');g.addColorStop(1,C.leaf);return g;},
+    borderRadius:6,maxBarThickness:22}]},
+  options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},
+    tooltip:{backgroundColor:'#0c130d',borderColor:C.line,borderWidth:1,
+      callbacks:{label:c=>fmt(c.parsed.x)+' clicks · pos '+top12[c.dataIndex].position}}},
+    scales:{x:{grid:{color:C.line},ticks:{color:C.faint},border:{display:false}},
+      y:{grid:{display:false},ticks:{color:C.muted,font:{size:11}},border:{color:C.line}}}}});
+
+/* ---- themes bars ---- */
+const tEntries=Object.entries(D.themes).sort((a,b)=>b[1].clicks-a[1].clicks);
+const tMax=Math.max(...tEntries.map(e=>e[1].clicks));
+document.getElementById('themes').innerHTML=tEntries.map(([n,v])=>`
+  <div class="theme"><div class="nm">${n}<small>${fmt(v.queries)} queries</small></div>
+  <div class="bar"><i data-w="${(v.clicks/tMax*100).toFixed(1)}"></i></div>
+  <div class="v">${fmt(v.clicks)}</div></div>`).join('');
+new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){
+  e.target.querySelectorAll('.bar i').forEach(i=>i.style.width=i.dataset.w+'%');o.disconnect();}});},{threshold:.3})
+  .observe(document.getElementById('themes'));
+
+/* ---- opportunity rows ---- */
+function action(o){const q=o.query.toLowerCase();
+  if(o.position>9)return'Thin/page-2 content — expand the article to break onto page 1.';
+  if(/^(ist|sind|is )/.test(q)||q.includes('vegan'))return'Add a clear yes/no answer box + FAQ schema in the title.';
+  if(/^e\d/.test(q))return'Rewrite title to a plain-language answer; add the E-number to the H1.';
+  return'Sharpen the page title &amp; meta description to win the click.';}
+document.getElementById('oppBody').innerHTML=D.opportunities.map(o=>`
+  <tr><td class="q">${o.query}</td>
+  <td class="num">${fmt(o.impressions)}</td>
+  <td><span class="pill">#${o.position.toFixed(1)}</span></td>
+  <td class="num">${o.clicks}</td>
+  <td class="gap">+${fmt(o.clicks_gap)}</td>
+  <td class="todo">${action(o)}</td></tr>`).join('');
+</script>
+</body>
+</html>
