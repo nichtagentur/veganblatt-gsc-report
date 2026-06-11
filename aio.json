@@ -1,0 +1,198 @@
+{
+  "location": "Germany (de)",
+  "queries_tested": 10,
+  "aio_present": 7,
+  "veganblatt_cited": 4,
+  "api_cost_usd": 0.02,
+  "sample_potential_clicks": 2065,
+  "sample_gsc_impr": 37685,
+  "clicks_at_risk_per_90d": 538,
+  "risk_factor_not_cited": 0.55,
+  "risk_factor_cited": 0.25,
+  "rows": [
+    {
+      "query": "ist honig vegan",
+      "aio": true,
+      "cited": false,
+      "sources": [
+        "www.peta.de",
+        "vegablum.de",
+        "www.youtube.com",
+        "www.sueddeutsche.de",
+        "www.oekotest.de",
+        "de.wikipedia.org"
+      ],
+      "n_sources": 11,
+      "serp_pos": null,
+      "gsc_clicks": 0,
+      "gsc_impr": 2214,
+      "gsc_pos": 3.2,
+      "potential_clicks": 221,
+      "risk_factor": 0.55,
+      "clicks_at_risk": 122
+    },
+    {
+      "query": "ist senf vegan",
+      "aio": false,
+      "cited": false,
+      "sources": [],
+      "n_sources": 0,
+      "serp_pos": 4,
+      "gsc_clicks": 7,
+      "gsc_impr": 3361,
+      "gsc_pos": 3.0,
+      "potential_clicks": 336,
+      "risk_factor": 0.0,
+      "clicks_at_risk": 0
+    },
+    {
+      "query": "ist cola vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "vegpool.de",
+        "www.veganblatt.com",
+        "www.veganfitwerden.de",
+        "www.youtube.com",
+        "www.handelsblatt.com"
+      ],
+      "n_sources": 5,
+      "serp_pos": 4,
+      "gsc_clicks": 8,
+      "gsc_impr": 2430,
+      "gsc_pos": 2.9,
+      "potential_clicks": 243,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 61
+    },
+    {
+      "query": "ist kakaobutter vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "vegpool.de",
+        "www.valrhona.com",
+        "tcho.com",
+        "www.veganblatt.com",
+        "analytik.news",
+        "www.viactiv.de"
+      ],
+      "n_sources": 6,
+      "serp_pos": 9,
+      "gsc_clicks": 0,
+      "gsc_impr": 3522,
+      "gsc_pos": 5.6,
+      "potential_clicks": 141,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 35
+    },
+    {
+      "query": "ist red bull vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "www.redbull.com",
+        "www.eat-vegan.de",
+        "utopia.de",
+        "www.veganblatt.com",
+        "plantbasednews.org"
+      ],
+      "n_sources": 5,
+      "serp_pos": 8,
+      "gsc_clicks": 14,
+      "gsc_impr": 3790,
+      "gsc_pos": 6.3,
+      "potential_clicks": 152,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 38
+    },
+    {
+      "query": "ist milchsäure vegan",
+      "aio": true,
+      "cited": true,
+      "sources": [
+        "www.peta.de",
+        "www.resch-frisch.com",
+        "veggie-einhorn.de",
+        "www.veganblatt.com",
+        "www.amazon.de",
+        "www.primaveralife.com"
+      ],
+      "n_sources": 6,
+      "serp_pos": 8,
+      "gsc_clicks": 1,
+      "gsc_impr": 4159,
+      "gsc_pos": 7.2,
+      "potential_clicks": 125,
+      "risk_factor": 0.25,
+      "clicks_at_risk": 31
+    },
+    {
+      "query": "ist blätterteig vegan",
+      "aio": true,
+      "cited": false,
+      "sources": [
+        "www.reddit.com",
+        "www.tantefanny.com",
+        "verbund.edeka",
+        "www.zuckerjagdwurst.com",
+        "vegpool.de",
+        "www.unsereheimat.de"
+      ],
+      "n_sources": 12,
+      "serp_pos": null,
+      "gsc_clicks": 3,
+      "gsc_impr": 2123,
+      "gsc_pos": 4.1,
+      "potential_clicks": 149,
+      "risk_factor": 0.55,
+      "clicks_at_risk": 82
+    },
+    {
+      "query": "e920",
+      "aio": false,
+      "cited": false,
+      "sources": [],
+      "n_sources": 0,
+      "serp_pos": 4,
+      "gsc_clicks": 65,
+      "gsc_impr": 6283,
+      "gsc_pos": 6.3,
+      "potential_clicks": 251,
+      "risk_factor": 0.0,
+      "clicks_at_risk": 0
+    },
+    {
+      "query": "agavendicksaft gesund",
+      "aio": true,
+      "cited": false,
+      "sources": [
+        "www.barmer.de",
+        "www.ruf.eu",
+        "www.instagram.com"
+      ],
+      "n_sources": 3,
+      "serp_pos": null,
+      "gsc_clicks": 0,
+      "gsc_impr": 2044,
+      "gsc_pos": 2.5,
+      "potential_clicks": 307,
+      "risk_factor": 0.55,
+      "clicks_at_risk": 169
+    },
+    {
+      "query": "juice cleanse",
+      "aio": false,
+      "cited": false,
+      "sources": [],
+      "n_sources": 0,
+      "serp_pos": null,
+      "gsc_clicks": 1,
+      "gsc_impr": 7759,
+      "gsc_pos": 10.5,
+      "potential_clicks": 140,
+      "risk_factor": 0.0,
+      "clicks_at_risk": 0
+    }
+  ]
+}
