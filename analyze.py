@@ -122,6 +122,79 @@ for q in queries:
 first7 = round(sum(clicks[:7]) / 7, 1)
 last7 = round(sum(clicks[-7:]) / 7, 1)
 
+# ============================================================
+# SEASONAL / HOLIDAY OVERLAY  (Austria + Germany, 2026 window)
+# ============================================================
+import datetime
+
+# Public holidays in the window. c = countries affected.
+HOLIDAYS = {
+    "2026-04-03": ("Good Friday / Karfreitag", "DE"),       # public DE (not general AT)
+    "2026-04-05": ("Easter Sunday / Ostersonntag", "AT+DE"),
+    "2026-04-06": ("Easter Monday / Ostermontag", "AT+DE"),
+    "2026-05-01": ("Labour Day / 1. Mai", "AT+DE"),
+    "2026-05-14": ("Ascension / Christi Himmelfahrt (DE: Vatertag)", "AT+DE"),
+    "2026-05-24": ("Pentecost Sunday / Pfingstsonntag", "AT+DE"),
+    "2026-05-25": ("Whit Monday / Pfingstmontag", "AT+DE"),
+    "2026-06-04": ("Corpus Christi / Fronleichnam", "AT+DE(cath.)"),
+}
+# School-vacation bands (approximate, varies by Bundesland) — for context shading.
+SCHOOL_BANDS = [
+    {"start": "2026-03-28", "end": "2026-04-07", "label": "Easter school holidays (AT/DE)"},
+    {"start": "2026-05-26", "end": "2026-06-05", "label": "Pentecost week (BY/BW)"},
+]
+
+# centered 7-day baseline -> detrended ratio per day (isolates holiday/weekend effect from the 4.5x trend)
+ratios, baselines = [], []
+for i in range(len(clicks)):
+    lo, hi = max(0, i - 3), min(len(clicks), i + 4)
+    base = sum(clicks[lo:hi]) / (hi - lo)
+    baselines.append(round(base, 1))
+    ratios.append(round(clicks[i] / base, 3) if base else 1.0)
+
+WD = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+dow = {w: [] for w in WD}
+for i, d in enumerate(dates):
+    dow[WD[datetime.date.fromisoformat(d).weekday()]].append(ratios[i])
+dow_avg = [{"day": w, "ratio": round(sum(v) / len(v), 3)} for w, v in dow.items()]
+
+# holiday impact: each holiday's detrended ratio (>1 = above local trend, <1 = suppressed)
+hol_rows = []
+for d, (name, c) in HOLIDAYS.items():
+    if d in dates:
+        i = dates.index(d)
+        hol_rows.append({"date": d, "name": name, "country": c,
+                         "clicks": clicks[i], "baseline": baselines[i],
+                         "ratio": ratios[i], "delta_pct": round((ratios[i] - 1) * 100)})
+hol_ratio_avg = round(sum(h["ratio"] for h in hol_rows) / len(hol_rows), 3)
+nonhol_ratios = [ratios[i] for i, d in enumerate(dates) if d not in HOLIDAYS]
+nonhol_avg = round(sum(nonhol_ratios) / len(nonhol_ratios), 3)
+
+# seasonal query themes (spring food calendar) — clicks are 90-day totals
+SEASON_Q = {
+    "Easter (Oster*)": ["oster"],
+    "Asparagus (Spargel)": ["spargel"],
+    "Rhubarb / Strawberry": ["rhabarb", "erdbeer"],
+    "Wild garlic (Bärlauch)": ["bärlauch", "baerlauch"],
+    "Grilling / BBQ": ["grill"],
+}
+season_rows = []
+for label, kws in SEASON_Q.items():
+    c = i_ = n = 0
+    for q in queries:
+        ql = q["query"].lower()
+        if any(k in ql for k in kws):
+            c += q["clicks"]; i_ += q["impressions"]; n += 1
+    season_rows.append({"theme": label, "clicks": c, "impressions": i_, "queries": n})
+season_rows.sort(key=lambda r: r["clicks"], reverse=True)
+
+seasonal = {
+    "ratios": ratios, "baselines": baselines,
+    "holidays": hol_rows, "school_bands": SCHOOL_BANDS,
+    "holiday_ratio_avg": hol_ratio_avg, "nonholiday_ratio_avg": nonhol_avg,
+    "dow": dow_avg, "season_queries": season_rows,
+}
+
 data = {
     "meta": meta,
     "site": {"clicks": site_clicks, "impressions": site_impr,
@@ -146,6 +219,7 @@ data = {
                        "potential_clicks": q["potential_clicks"],
                        "clicks_gap": q["clicks_gap"]} for q in opps],
     "themes": theme_counts,
+    "seasonal": seasonal,
 }
 
 json.dump(data, open(OUT, "w"), ensure_ascii=False, indent=2)
